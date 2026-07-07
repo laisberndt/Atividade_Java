@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Aprenda & Calcule</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
+            --error-color: #ef4444;
+            --success-color: #22c55e;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 15px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 24px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            background: #e2e8f0;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #475569;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Estilos da Calculadora */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        input[type="number"], select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        input[type="number"]:focus, select:focus {
+            border-color: var(--primary-color);
+        }
+
+        button.action-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button.action-btn:hover {
+            background: var(--primary-hover);
+        }
+
+        .result-box {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 6px;
+            font-weight: bold;
+            display: none;
+        }
+
+        .result-box.success {
+            display: block;
+            background-color: #dcfce7;
+            color: #15803d;
+            border: 1px solid #bbf7d0;
+        }
+
+        .result-box.error {
+            display: block;
+            background-color: #fee2e2;
+            color: #b91c1c;
+            border: 1px solid #fecaca;
+        }
+
+        /* Estilos do Guia de Conceitos */
+        .concept-select {
+            margin-bottom: 20px;
+        }
+
+        .concept-card {
+            background: #f8fafc;
+            border-left: 4px solid var(--primary-color);
+            padding: 20px;
+            border-radius: 0 6px 6px 0;
+            display: none;
+        }
+
+        .concept-card h3 {
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>SISTEMA APRENDA & CALCULE</h1>
+    </header>
+
+    <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('calc-tab')">1. Menu Calculadora</button>
+        <button class="tab-btn" onclick="switchTab('guide-tab')">2. Guia de Conceitos</button>
+    </div>
+
+    <div id="calc-tab" class="tab-content active">
+        <h2>Menu Calculadora</h2>
+        <br>
+        <div class="form-group">
+            <label for="num1">Digite o primeiro número:</label>
+            <input type="number" id="num1" step="any" placeholder="Ex: 10">
+        </div>
+        <div class="form-group">
+            <label for="num2">Digite o segundo número:</label>
+            <input type="number" id="num2" step="any" placeholder="Ex: 2">
+        </div>
+        <div class="form-group">
+            <label for="operacao">Escolha a operação:</label>
+            <select id="operacao">
+                <option value="1">1. Somar</option>
+                <option value="2">2. Subtrair</option>
+                <option value="3">3. Multiplicar</option>
+                <option value="4">4. Dividir</option>
+            </select>
+        </div>
+        <button class="action-btn" onclick="executarCalculo()">Calcular</button>
+
+        <div id="resultado" class="result-box"></div>
+    </div>
+
+    <div id="guide-tab" class="tab-content">
+        <h2>Guia de Conceitos</h2>
+        <br>
+        <div class="form-group concept-select">
+            <label for="conceito">Escolha o conceito que você quer aprender:</label>
+            <select id="conceito" onchange="mostrarConceito()">
+                <option value="">-- Selecione um conceito --</option>
+                <option value="1">1. O que é POO</option>
+                <option value="2">2. O que são Classes</option>
+                <option value="3">3. O que são Atributos</option>
+                <option value="4">4. O que é Encapsulamento</option>
+                <option value="5">5. O que são Requisitos e Regras de Negócio</option>
+            </select>
+        </div>
+
+        <div id="c1" class="concept-card">
+            <h3>POO Java</h3>
+            <p>POO refere-se ao uso da Programação Orientada a Objetos (POO) na linguagem de programação Java. É um modelo de desenvolvimento onde o código é organizado em "objetos" que representam entidades do mundo real, facilitando a reutilização, a manutenção e a organização de sistemas complexos.</p>
+        </div>
+
+        <div id="c2" class="concept-card">
+            <h3>Classes em Java</h3>
+            <p>A classe é um elemento do código Java utilizado para representar objetos do mundo real. Dentro dela é comum serem declarados atributos, que são as características e métodos, os comportamentos. Ela é uma estrutura fundamental que define um tipo de objeto, serve como modelo para criar objetos que compartilham características em comum, mas podem assumir estado próprio.</p>
+        </div>
+
+        <div id="c3" class="concept-card">
+            <h3>Atributos em Java</h3>
+            <p>Os atributos são as características de um objeto. Eles são declarados dentro de uma classe e representam os dados que esse objeto pode armazenar. Por exemplo, quando o atributo representa um texto, como cor ou modelo, utiliza-se o tipo String. Já para números inteiros, como quantidade ou ano, o tipo int é utilizado.</p>
+        </div>
+
+        <div id="c4" class="concept-card">
+            <h3>Encapsulamento em Java</h3>
+            <p>Encapsulamento é a técnica que esconde uma ideia, ou seja, não expõe detalhes internos para o usuário, tornando o sistema mais independente. Por exemplo, quando um controle remoto estraga apenas é trocado ou consertado o controle e não a televisão inteira. Nesse exemplo, acontece a forma clássica de encapsulamento, pois quando o usuário muda de canal não sabe que programação acontece entre a TV e o controle para efetuar essa ação.</p>
+        </div>
+
+        <div id="c5" class="concept-card">
+            <h3>Requisitos e Regras de Negócio</h3>
+            <p>Requisitos são as funcionalidades do sistema (o que o software faz), enquanto as regras de negócio são as diretrizes, restrições e políticas que a empresa segue (como o sistema deve operar).</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Simulação da classe Calculadora em JavaScript (com encapsulamento)
+    class Calculadora {
+        #num1; // Atributo privado
+        #num2; // Atributo privado
+
+        constructor(num1, num2) {
+            this.#num1 = num1;
+            this.#num2 = num2;
+        }
+
+        somar() { return this.#num1 + this.#num2; }
+        subtrair() { return this.#num1 - this.#num2; }
+        multiplicar() { return this.#num1 * this.#num2; }
+        dividir() { return this.#num1 / this.#num2; }
+    }
+
+    // Gerenciador de Abas
+    function switchTab(tabId) {
+        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        
+        document.getElementById(tabId).classList.add('active');
+        event.currentTarget.classList.add('active');
+    }
+
+    // Executa a lógica da calculadora idêntica ao fluxo do "if/else" do Java
+    function executarCalculo() {
+        const num1 = parseFloat(document.getElementById('num1').value);
+        const num2 = parseFloat(document.getElementById('num2').value);
+        const operacao = parseInt(document.getElementById('operacao').value);
+        const resultBox = document.getElementById('resultado');
+
+        if (isNaN(num1) || isNaN(num2)) {
+            resultBox.className = "result-box error";
+            resultBox.innerText = "Por favor, preencha ambos os números.";
+            return;
+        }
+
+        // Instanciando a classe equivalente à do Java
+        const calculo = new Calculadora(num1, num2);
+        let resultadoFinal = "";
+        
+        if (operacao === 1) {
+            resultadoFinal = `O resultado de ${num1} + ${num2} é ${calculo.somar()}`;
+            resultBox.className = "result-box success";
+        } else if (operacao === 2) {
+            resultadoFinal = `O resultado de ${num1} - ${num2} é ${calculo.subtrair()}`;
+            resultBox.className = "result-box success";
+        } else if (operacao === 3) {
+            resultadoFinal = `O resultado de ${num1} * ${num2} é ${calculo.multiplicar()}`;
+            resultBox.className = "result-box success";
+        } else if (operacao === 4) {
+            if (num2 === 0) {
+                resultadoFinal = "ERRO! Não pode ser feita a divisão por Zero!";
+                resultBox.className = "result-box error";
+            } else {
+                resultadoFinal = `O resultado de ${num1} / ${num2} é ${calculo.dividir()}`;
+                resultBox.className = "result-box success";
+            }
+        }
+
+        resultBox.innerText = resultadoFinal;
+    }
+
+    // Controla a exibição dos textos do guia
+    function mostrarConceito() {
+        const selecao = document.getElementById('conceito').value;
+        
+        // Esconde todos os cards de conceitos
+        document.querySelectorAll('.concept-card').forEach(card => card.style.display = 'none');
+        
+        // Mostra apenas o selecionado
+        if (selecao) {
+            document.getElementById(`c${selecao}`).style.display = 'block';
+        }
+    }
+</script>
+
+</body>
+</html>
