@@ -88,8 +88,7 @@ public class Main {
                         System.out.println("\nEncapsulamento em Java");
                         System.out.println("Encapsulamento é a técnica que esconde uma ideia, ou seja, não expõe detalhes internos para o usuário,\n" +
                         "tornando o sistema mais independente. Por exemplo, quando um controle remoto estraga apenas é trocado ou consertado o controle e não a televisão inteira.\n" +
-                        "Nesse exemplo, acontece a forma clássica de encapsulamento, pois quando o usuário muda de canal não sabe que programação\n" +
-                        "acontece entre a TV e o controle para efetuar essa ação.");
+                        "Nesse exemplo, acontece a forma clássica de encapsulamento, pois quando o usuário muda de canal não sabe que programação\n" acontece entre a TV e o controle para efetuar essa ação.");
                     } else if (conceito == 5) {
                         System.out.println("\nRequisitos e Regras de Negócio");
                         System.out.println("Requisitos são as funcionalidades do sistema (o que o software faz),\n" +
@@ -101,7 +100,6 @@ public class Main {
                     
                 case 3:
                     System.out.println("Saindo...");
-                    System.out.println("Sistema encerrado. Bons estudos!");
                     scanner.close();
                     System.exit(0);
                     

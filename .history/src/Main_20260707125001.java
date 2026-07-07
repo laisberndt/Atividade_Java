@@ -101,7 +101,7 @@ public class Main {
                     
                 case 3:
                     System.out.println("Saindo...");
-                    System.out.println("Sistema encerrado. Bons estudos!");
+                    ystem.out.println("Sistema encerrado. Bons estudos!");
                     scanner.close();
                     System.exit(0);
                     
