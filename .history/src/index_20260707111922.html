@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Aprenda & Calcule</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            background:linear-gradient(135deg,#4facfe,#00f2fe);
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            min-height:100vh;
+        }
+
+        .container{
+            width:800px;
+            background:white;
+            padding:40px;
+            border-radius:20px;
+            box-shadow:0 10px 25px rgba(0,0,0,.2);
+        }
+
+        h1{
+            text-align:center;
+            color:#0077cc;
+            margin-bottom:10px;
+        }
+
+        p{
+            text-align:center;
+            color:#555;
+            margin-bottom:30px;
+        }
+
+        .cards{
+            display:flex;
+            gap:20px;
+        }
+
+        .card{
+            flex:1;
+            background:#f5f9ff;
+            border-radius:15px;
+            padding:20px;
+            transition:.3s;
+            border:2px solid transparent;
+        }
+
+        .card:hover{
+            transform:translateY(-8px);
+            border-color:#00a2ff;
+            box-shadow:0 8px 20px rgba(0,0,0,.15);
+        }
+
+        h2{
+            color:#0066cc;
+            margin-bottom:15px;
+        }
+
+        ul{
+            margin-left:20px;
+            color:#444;
+        }
+
+        footer{
+            margin-top:30px;
+            text-align:center;
+            color:#777;
+            font-size:14px;
+        }
+
+        button{
+            display:block;
+            margin:30px auto 0;
+            padding:12px 25px;
+            border:none;
+            border-radius:10px;
+            background:#0077ff;
+            color:white;
+            font-size:16px;
+            cursor:pointer;
+            transition:.3s;
+        }
+
+        button:hover{
+            background:#005fcc;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>📚 Sistema Aprenda & Calcule</h1>
+
+    <p>
+        Um sistema desenvolvido em Java que une uma calculadora básica
+        com um guia de conceitos de Programação Orientada a Objetos.
+    </p>
+
+    <div class="cards">
+
+        <div class="card">
+            <h2>🧮 Calculadora</h2>
+
+            <ul>
+                <li>Soma</li>
+                <li>Subtração</li>
+                <li>Multiplicação</li>
+                <li>Divisão</li>
+                <li>Validação de divisão por zero</li>
+            </ul>
+
+        </div>
+
+        <div class="card">
+            <h2>📖 Guia de Conceitos</h2>
+
+            <ul>
+                <li>POO</li>
+                <li>Classes</li>
+                <li>Atributos</li>
+                <li>Encapsulamento</li>
+                <li>Requisitos e Regras de Negócio</li>
+            </ul>
+
+        </div>
+
+    </div>
+
+    <button>Iniciar Sistema</button>
+
+    <footer>
+        Desenvolvido em Java ☕ | Projeto Acadêmico
+    </footer>
+
+</div>
+
+</body>
+</html>
